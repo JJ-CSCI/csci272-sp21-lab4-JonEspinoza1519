@@ -8,8 +8,35 @@ using Catch::Matchers::Equals;
 
 // Fix the following class
 class Complex {
-    void operator>>(std::string&) const;
-    void operator<<(const std::string&);
+  int a, b;
+
+public:
+
+  Complex(int re=0, int im=0){
+    a = re;
+    b = im;
+  }
+
+  int re()const{
+    return a;
+  }
+
+  int im()const{
+    return b;
+  }
+
+  void operator>>(std::string& complexNum) const{
+    complexNum.append(std::to_string(a));
+    if (b >= 0)
+      complexNum.append("+").append(std::to_string(b)).append("i");
+    else
+      complexNum.append(std::to_string(b)).append("i");
+  }
+
+  void operator<<(const std::string& complexInput){
+    a = std::stoi(complexInput.substr(0));
+    b = std::stoi(complexInput.substr(2));
+  }
 };
 
 //------------------------------
